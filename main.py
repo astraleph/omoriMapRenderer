@@ -92,7 +92,16 @@ while True:
     composite.save("./layers/composite.png")
 
     print("Finished rendering map!")
-	
+    print("Rendering actors...")
+    
+    events = DATA['events']
+    actorImage = Image.new("RGBA", (imageWidth, imageHeight))
+    for event in events:
+        if event:
+            ex, ey = event['x'] * tileWidth, event['y'] * tileHeight
+            actorImage.paste(actorTile, (ex, ey))
+    actorImage.save("./layers/actors.png")
+    
     print("BGM - " + DATA['bgm']['name'])
     print("BGS - " + DATA['bgs']['name'])
     if DATA['parallaxName']:
