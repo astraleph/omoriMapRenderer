@@ -28,10 +28,14 @@ while True:
     print(f"---\nRendering map \"{selected[0]}\"")
 
     # load map
-    MAP = json.load(
-        open(config['www'] + f"\\maps\\map{selected[1]}.json", 'r', encoding="utf-8"))
-    DATA = json.load(open(
-        config['www'] + f"\\data\\Map{str(selected[1]).zfill(3)}.json", 'r', encoding="utf-8"))
+    try:
+        MAP = json.load(
+            open(config['www'] + f"\\maps\\map{selected[1]}.json", 'r', encoding="utf-8"))
+        DATA = json.load(open(
+            config['www'] + f"\\data\\Map{str(selected[1]).zfill(3)}.json", 'r', encoding="utf-8"))
+    except FileNotFoundError:
+        print("Map files not found!")
+        continue
 
     imageWidth, imageHeight = MAP['tilewidth'] * \
         MAP['width'], MAP['tileheight'] * MAP['height']
@@ -44,7 +48,21 @@ while True:
     # map has actual map tiles / tilesets
     TILESETS = {}
     for tileset in MAP['tilesets']:
-        source = tileset['source']
+        try:
+            source = tileset['source']
+        except KeyError:
+            TILEJSON = tileset # lol?
+            iW, iH = TILEJSON['imagewidth'], TILEJSON['imageheight']
+            tW, tH = TILEJSON['tilewidth'],  TILEJSON['tileheight']
+            rows, cols = iW//tW, iH//tH
+
+            firstgid = tileset['firstgid']
+            tilecount = TILEJSON['tilecount']
+            imageName = config['www'] + \
+                TILEJSON['image'].replace("/", "\\").strip("..")
+
+            TILESETS[range(firstgid, firstgid+tilecount)
+                    ] = SheetReader(imageName, tW, tH)
         fullsource = config['www'] + f"\\maps\\{source}"
         TILEJSON = json.load(open(fullsource))
         iW, iH = TILEJSON['imagewidth'], TILEJSON['imageheight']

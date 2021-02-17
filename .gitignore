@@ -4,4 +4,5 @@ config.json
 layers
 tiles
 _test.py
+main_copy.py
 __pycache__/*
