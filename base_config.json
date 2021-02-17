@@ -1,0 +1,4 @@
+{
+	"www": "[path to www_decrypt]",
+	"mapinfos": "<www>\\data\\MapInfos.json"
+}

@@ -1,0 +1,7 @@
+0*.json
+DW*.*
+config.json
+layers
+tiles
+_test.py
+__pycache__/*
