@@ -1,4 +1,5 @@
 # OMORI Map Renderer
+⚠ **WARNING: this project is not maintained.** ⚠<br>
 running `main.py` after setup lets you search for and render a map into multiple layers, while also giving BGM/BGS info.<br>
 i wrote this program mainly to speed up the process of making [wallpapers for wallpaper engine](https://steamcommunity.com/sharedfiles/filedetails/?id=2395161461)! it wasn't really meant to<br>be released, so forgive me if this is super unreadable.
 ## setup
